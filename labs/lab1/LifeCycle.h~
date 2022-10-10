@@ -1,0 +1,13 @@
+#ifndef LIFECYCLE_H
+#difine LIFECYCLE_H
+
+class MyObject {
+ public:
+  MyObject();
+  Myobject(string n);
+  MyObject(const MyObject& rhs);
+  ~MyObject();
+  getName() const;
+  
+  
+}

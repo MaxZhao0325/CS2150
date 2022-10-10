@@ -1,0 +1,33 @@
+C006 000   jmp            start      skip around the variables
+0000 001   dw   iterator  0
+0001 002   dw   one       1
+3000 003   dw   loit      3000
+001D 004   dw   size      01D        size = 30
+0012 005   dw   12                   18
+3004 006   load size
+6001 007   sub  iterator
+D01D 008   jmpe           jump to halt
+B000 009
+3001 00A   load iterator
+6002 00B   sub  one
+D01A 00C   jmpe           jump to print 0
+B000 00D
+6005 00E   sub  12
+D01A 00F   jmpe           jump to print 0
+3003 010   load loit
+5001 011   add  iterator
+4013 012   store
+0000 013   doit
+1800 014   printH
+B000 015
+3001 016   load iterator
+5002 017   add  one
+4001 018   store iterator
+C006 019   jmp            jump to start of the loop
+301D 01A   load 0
+1800 01B   printH
+C016 01C   jmp            jump back to load iterator
+0000 01D   halt           halt
+
+        
+

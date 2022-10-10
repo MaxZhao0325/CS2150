@@ -1,0 +1,114 @@
+C00E 000        jmp     start      skip around the variables
+000A 001 MAX    dw      A          int MAX = 10
+0000 002 i      dw      0          int i = 0
+0000 003 temp   dw      0          int temp = 0
+0000 004 j      dw      0          int j = 0
+0000 005 k      dw      0          int k = 0
+0001 006 one    dw      1
+0000 007 zero   dw      0
+0072 008 base   dw      72         array base
+4000 009 storeit dw     4000
+3000 00A loit   dw      3000
+6000 00B subit  dw      6000
+0000 00C
+0000 00D
+3001 00E loop1  load    MAX
+6004 00F        sub     j
+D01C 010        jmpe    j--
+E01C 011        jmpl    j--
+3008 012        load    base
+5004 013        add     j
+5009 014        add     storeit
+4017 015        store   doit
+1000 016        readH              input
+0000 017 doit   dw      0
+3004 018        load    j
+5006 019        add     one        j++
+4004 01A        store   j
+C00E 01B        jmp    loop1
+3004 01C        load    j          j--
+6006 01D        sub     one
+4004 01E        store   j
+B000 01F
+B000 020
+3001 021 loop2  load    Max
+6002 022        sub     i
+D063 023        jmpe               jump to print loop if i >= MAX
+E063 024        jmpl
+3001 025        load    MAX
+6006 026        sub     one
+4004 027        store   j
+3004 028 loop3  load    j
+6002 029        sub     i
+D05D 02A        jmpe               jump to i++ if j <= i
+E05D 02B        jmpl
+3008 02C        load    base
+500A 02D        add     loit
+5004 02E        add     j
+6006 02F        sub     one        store load a[j-1]
+4035 030        store   doit1
+3008 031        load    base
+500B 032        add     subit
+5004 033        add     j
+4036 034        store   doit2
+0000 035 doit1  dw      0          store a[j-1]
+0000 036 doit2  dw      0          store sub a[j]
+B000 037
+B000 038
+D058 039        jmpe               jump to j-- if a[j] >= a[j-1]
+E058 03A        jmpl
+B000 03B
+3008 03C        load    base       load a[j]
+500A 03D        add     loit
+5004 03E        add     j
+4040 03F        store   doit3
+0000 040 doit3  dw      0          store a[j]
+4003 041        store   temp       temp = a[j]
+B000 042
+3008 043        load    base
+500A 044        add     loit
+5004 045        add     j
+6006 046        sub     one
+404D 047        store   doit4      load a[j-1]
+B000 048
+3008 049        load    base
+5009 04A        add     storeit
+5004 04B        add     j          store a[j]
+404E 04C        store   doit5
+0000 04D doit4  dw      0
+0000 04E doit5  dw      0
+B000 04F
+3008 050        load    base
+5009 051        add     storeit
+5004 052        add     j
+6006 053        sub     one        store a[j-1]
+4056 054        store   doit6
+3003 055        load    temp
+0000 056 doit6  dw      0
+B000 057
+3004 058 j--    load    j          j--
+6006 059        sub     one
+4004 05A        store   j
+C028 05B        jmp     loop3      go back to the start of loop3
+B000 05C
+3002 05D i++    load    i          i++
+5006 05E        add     one
+4002 05F        store   i
+B000 060
+C021 061        jmp     loop2      jump back to loop2
+B000 062
+3001 063 print  load    MAX        print the array
+6005 064        sub     k
+D071 065        jmpe               jump tp halt if k >= MAX
+E071 066        jmpl
+3008 067        load    base
+5005 068        add     k
+500A 069        add     loit
+406B 06A        store   doit
+0000 06B        dw      0
+1800 06C        printH
+3005 06D        load    k
+5006 06E        add     one
+4005 06F        store   k
+C063 070        jmp                jump back to print loop
+0000 071        halt               halt
